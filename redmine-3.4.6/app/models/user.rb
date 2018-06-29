@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-require "digest/sha1"
+require "digest/sha2"
 
 class User < Principal
   include Redmine::SafeAttributes
@@ -109,6 +109,7 @@ class User < Principal
   validates_uniqueness_of :login, :if => Proc.new { |user| user.login_changed? && user.login.present? }, :case_sensitive => false
   # Login must contain letters, numbers, underscores only
   validates_format_of :login, :with => /\A[a-z0-9_\-@\.]*\z/i
+  validates_format_of :password, :with => /(?=(.*[a-z]){1,})(?=(.*[0-9]){1,})(?=(.*[\W]){1,})(?!.*\s)/i
   validates_length_of :login, :maximum => LOGIN_LENGTH_LIMIT
   validates_length_of :firstname, :lastname, :maximum => 30
   validates_length_of :identity_url, maximum: 255
@@ -218,7 +219,8 @@ class User < Principal
   end
 
   # Returns the user that matches provided login and password, or nil
-  def self.try_to_login(login, password, active_only=true)
+  def self.try_to_login(login, password, mode=0, active_only=true)
+
     login = login.to_s.strip
     password = password.to_s
 
@@ -227,7 +229,7 @@ class User < Principal
     user = find_by_login(login)
     if user
       # user is already in local database
-      return nil unless user.check_password?(password)
+      return nil unless user.check_password?(password, mode)
       return nil if !user.active? && active_only
     else
       # user is not yet registered, try to authenticate with available sources
@@ -319,11 +321,15 @@ class User < Principal
   end
 
   # Returns true if +clear_password+ is the correct user's password, otherwise false
-  def check_password?(clear_password)
+  def check_password?(clear_password, mode=0)
     if auth_source_id.present?
       auth_source.authenticate(self.login, clear_password)
     else
-      User.hash_password("#{salt}#{User.hash_password clear_password}") == hashed_password
+		if mode == "1"
+			clear_password == hashed_password
+		else
+	      User.hash_password("#{salt}#{User.hash_password clear_password}") == hashed_password
+		end
     end
   end
 
@@ -882,7 +888,7 @@ class User < Principal
 
   # Return password digest
   def self.hash_password(clear_password)
-    Digest::SHA1.hexdigest(clear_password || "")
+    Digest::SHA256.hexdigest(clear_password || "")
   end
 
   # Returns a 128bits random salt as a hex string (32 chars long)

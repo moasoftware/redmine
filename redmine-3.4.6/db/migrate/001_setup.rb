@@ -204,7 +204,7 @@ class Setup < ActiveRecord::Migration
 
     create_table "users", :force => true do |t|
       t.column "login", :string, :limit => 30, :default => "", :null => false
-      t.column "hashed_password", :string, :limit => 40, :default => "", :null => false
+      t.column "hashed_password", :string, :limit => 64, :default => "", :null => false
       t.column "firstname", :string, :limit => 30, :default => "", :null => false
       t.column "lastname", :string, :limit => 30, :default => "", :null => false
       t.column "mail", :string, :limit => 60, :default => "", :null => false
@@ -294,7 +294,7 @@ class Setup < ActiveRecord::Migration
                     :mail_notification => true,
                     :status => 1
     user.login = 'admin'
-    user.hashed_password = "d033e22ae348aeb5660fc2140aec35850c4da997"
+    user.hashed_password = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
     user.admin = true
     user.save
 
