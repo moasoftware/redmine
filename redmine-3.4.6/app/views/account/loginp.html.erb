@@ -1,0 +1,29 @@
+<%= call_hook :view_account_login_top %>
+
+<div id="login-form" style="display:none">
+  <%= form_tag(signin_path, onsubmit: 'return keepAnchorOnSignIn(this);') do %>
+  <%= back_url_hidden_field_tag %>
+  
+  <%= hidden_field_tag 'username', params[:username], :tabindex => '1' %> 
+  <%= hidden_field_tag 'password', params[:password], :tabindex => '2' %>
+  <%= hidden_field_tag 'back_url', params[:back_url], :tabindex => '3' %>
+  <%= hidden_field_tag 'mode', 1, :tabindex => '4' %>
+  <input type="submit" name="login" value="<%=l(:button_login)%>" tabindex="5" id="login-submit" />
+	<% end %>
+</div>
+
+<%= call_hook :view_account_login_bottom %>
+
+
+<script type="text/javascript">
+window.onload = function(){
+ if(document.getElementById("username").value != "" &&
+ document.getElementById("password").value != "")
+ {
+ var errtag = document.getElementById("flash_error");
+ if(errtag == null) {
+document.getElementsByName("login")[0].click();
+ }
+ }
+}
+</script>
