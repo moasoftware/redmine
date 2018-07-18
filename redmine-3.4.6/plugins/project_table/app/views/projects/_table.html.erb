@@ -1,0 +1,26 @@
+<table class="list projects">
+  <thead>
+    <tr>
+      <th><%= t :field_name %></th>
+      <th><%= t :field_description %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% project_tree(projects) do |project, level| %>
+      <tr class="<%= cycle('odd', 'even') %> <%= project.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
+        <td class="name">
+          <span>
+            <%= link_to_project(project, {}, :class => "#{project.css_classes} #{User.current.member_of?(project) ? 'my-project' : nil}") %>
+          </span>
+        </td>
+        <td class="wiki description">
+          <%= textilizable(project.short_description, :project => project) if project.description.present? %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'projects', :plugin => 'projects_table' %>
+<% end %>
