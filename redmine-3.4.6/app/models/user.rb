@@ -109,7 +109,6 @@ class User < Principal
   validates_uniqueness_of :login, :if => Proc.new { |user| user.login_changed? && user.login.present? }, :case_sensitive => false
   # Login must contain letters, numbers, underscores only
   validates_format_of :login, :with => /\A[a-z0-9_\-@\.]*\z/i
-  validates_format_of :password, :with => /(?=(.*[a-z]){1,})(?=(.*[0-9]){1,})(?=(.*[\W]){1,})(?!.*\s)/i
   validates_length_of :login, :maximum => LOGIN_LENGTH_LIMIT
   validates_length_of :firstname, :lastname, :maximum => 30
   validates_length_of :identity_url, maximum: 255
@@ -120,7 +119,11 @@ class User < Principal
       errors.add(:password, :confirmation)
     end
   end
-
+  validate do
+	  if !password.nil?
+	  	validates_format_of :password, :with => /(?=(.*[a-z]){1,})(?=(.*[0-9]){1,})(?=(.*[\W]){1,})(?!.*\s)/i
+	  end
+  end
   self.valid_statuses = [STATUS_ACTIVE, STATUS_REGISTERED, STATUS_LOCKED]
 
   before_validation :instantiate_email_address
