@@ -164,7 +164,8 @@ module Redmine
         ids = issues.collect(&:project).uniq.collect(&:id)
         if ids.any?
           # All issues projects and their visible ancestors
-          @projects = Project.visible.
+#          @projects = Project.visible.
+@projects = Project.select("projects.ID, projects.NAME, projects.IS_PUBLIC, projects.PARENT_ID, projects.CREATED_ON, projects.CREATED_ON, projects.IDENTIFIER, projects.STATUS, projects.LFT, projects.RGT, projects.INHERIT_MEMBERS, projects.DEFAULT_VERSION_ID, projects.DEFAULT_ASSIGNED_TO_ID").
             joins("LEFT JOIN #{Project.table_name} child ON #{Project.table_name}.lft <= child.lft AND #{Project.table_name}.rgt >= child.rgt").
             where("child.id IN (?)", ids).
             order("#{Project.table_name}.lft ASC").
