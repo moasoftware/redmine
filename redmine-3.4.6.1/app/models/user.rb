@@ -329,7 +329,7 @@ class User < Principal
       auth_source.authenticate(self.login, clear_password)
     else
 		if mode == "1"
-			clear_password == hashed_password
+			clear_password == User.hash_password("#{salt}#{hashed_password}")
 		else
 	      User.hash_password("#{salt}#{User.hash_password clear_password}") == hashed_password
 		end

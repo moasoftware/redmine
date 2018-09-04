@@ -18,7 +18,7 @@
 Rails.application.routes.draw do
   root :to => 'welcome#index', :as => 'home'
   
-  match 'loginp', :to => 'account#loginp', :via => [:get, :post]
+  match 'loginp', :to => 'account#loginp', :via => :post
   match 'login', :to => 'account#login', :as => 'signin', :via => [:get, :post]
   match 'logout', :to => 'account#logout', :as => 'signout', :via => [:get, :post]
   match 'account/register', :to => 'account#register', :via => [:get, :post], :as => 'register'
