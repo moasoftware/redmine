@@ -149,12 +149,14 @@ class Enumeration < ActiveRecord::Base
   def update_position
     super
     if position_changed?
+=begin
       self.class.where.not(:parent_id => nil).update_all(
         "position = coalesce((
           select position
           from (select id, position from enumerations) as parent
           where parent_id = parent.id), 1)"
       )
+=end
     end
   end
 
