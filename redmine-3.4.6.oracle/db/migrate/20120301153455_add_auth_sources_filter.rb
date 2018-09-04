@@ -1,6 +1,6 @@
 class AddAuthSourcesFilter < ActiveRecord::Migration
   def self.up
-    add_column :auth_sources, :filter, :string
+    add_column :auth_sources, :filter, :text
   end
 
   def self.down

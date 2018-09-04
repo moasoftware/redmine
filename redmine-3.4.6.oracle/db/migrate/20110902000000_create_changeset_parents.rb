@@ -4,8 +4,8 @@ class CreateChangesetParents < ActiveRecord::Migration
       t.column :changeset_id, :integer, :null => false
       t.column :parent_id, :integer, :null => false
     end
-    add_index :changeset_parents, [:changeset_id], :unique => false, :name => :changeset_parents_changeset_ids
-    add_index :changeset_parents, [:parent_id], :unique => false, :name => :changeset_parents_parent_ids
+    add_index :changeset_parents, [:changeset_id], :unique => false, :name => :changeset_par_chang_ids
+    add_index :changeset_parents, [:parent_id], :unique => false, :name => :changeset_par_par_ids
   end
 
   def self.down

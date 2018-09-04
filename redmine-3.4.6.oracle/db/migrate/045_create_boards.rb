@@ -2,7 +2,7 @@ class CreateBoards < ActiveRecord::Migration
   def self.up
     create_table :boards do |t|
       t.column :project_id, :integer, :null => false
-      t.column :name, :string, :default => "", :null => false
+      t.column :name, :string, :default => "", :null => true
       t.column :description, :string
       t.column :position, :integer, :default => 1
       t.column :topics_count, :integer, :default => 0, :null => false

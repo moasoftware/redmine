@@ -3,7 +3,7 @@ class CreateIssueRelations < ActiveRecord::Migration
     create_table :issue_relations do |t|
       t.column :issue_from_id, :integer, :null => false
       t.column :issue_to_id, :integer, :null => false
-      t.column :relation_type, :string, :default => "", :null => false
+      t.column :relation_type, :string, :default => "", :null => true
       t.column :delay, :integer
     end
   end

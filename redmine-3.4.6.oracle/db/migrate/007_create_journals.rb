@@ -8,17 +8,17 @@ class CreateJournals < ActiveRecord::Migration
   def self.up
     create_table :journals, :force => true do |t|
       t.column "journalized_id", :integer, :default => 0, :null => false
-      t.column "journalized_type", :string, :limit => 30, :default => "", :null => false
+      t.column "journalized_type", :string, :limit => 30, :default => "", :null => true
       t.column "user_id", :integer, :default => 0, :null => false
       t.column "notes", :text
       t.column "created_on", :datetime, :null => false
     end
     create_table :journal_details, :force => true do |t|
       t.column "journal_id", :integer, :default => 0, :null => false
-      t.column "property", :string, :limit => 30, :default => "", :null => false
-      t.column "prop_key", :string, :limit => 30, :default => "", :null => false
-      t.column "old_value", :string
-      t.column "value", :string
+      t.column "property", :string, :limit => 30, :default => "", :null => true
+      t.column "prop_key", :string, :limit => 30, :default => "", :null => true
+      t.column "old_value", :text
+      t.column "value", :text
     end
 
     # indexes

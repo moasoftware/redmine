@@ -1,7 +1,7 @@
 class ChangeUsersMailNotificationToString < ActiveRecord::Migration
   def self.up
     rename_column :users, :mail_notification, :mail_notification_bool
-    add_column :users, :mail_notification, :string, :default => '', :null => false
+    add_column :users, :mail_notification, :string, :default => '', :null => true
     User.where("mail_notification_bool = #{connection.quoted_true}").
       update_all("mail_notification = 'all'")
     User.where("EXISTS (SELECT 1 FROM #{Member.table_name} WHERE #{Member.table_name}.mail_notification = #{connection.quoted_true} AND #{Member.table_name}.user_id = #{User.table_name}.id)").

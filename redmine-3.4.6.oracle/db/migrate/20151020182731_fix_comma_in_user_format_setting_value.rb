@@ -1,8 +1,8 @@
 class FixCommaInUserFormatSettingValue < ActiveRecord::Migration
   def self.up 
-    Setting.
-      where(:name => 'user_format', :value => 'lastname_coma_firstname').
-      update_all(:value => 'lastname_comma_firstname')
+#    Setting.
+#      where(:name => 'user_format', :value => 'lastname_coma_firstname').
+#      update_all(:value => 'lastname_comma_firstname')
   end
 
   def self.down

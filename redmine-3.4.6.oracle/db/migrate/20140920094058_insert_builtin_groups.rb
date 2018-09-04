@@ -1,5 +1,6 @@
 class InsertBuiltinGroups < ActiveRecord::Migration
   def up
+#=begin
     Group.reset_column_information
 
     unless GroupAnonymous.any?
@@ -12,6 +13,7 @@ class InsertBuiltinGroups < ActiveRecord::Migration
       g.status = 1
       g.save :validate => false
     end
+#=end
   end
 
   def down

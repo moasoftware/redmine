@@ -27,20 +27,20 @@ class Setup < ActiveRecord::Migration
   def self.up
     create_table "attachments", :force => true do |t|
       t.column "container_id", :integer, :default => 0, :null => false
-      t.column "container_type", :string, :limit => 30, :default => "", :null => false
-      t.column "filename", :string, :default => "", :null => false
-      t.column "disk_filename", :string, :default => "", :null => false
+      t.column "container_type", :string, :limit => 30, :default => "", :null => true
+      t.column "filename", :string, :default => "", :null => true
+      t.column "disk_filename", :string, :default => "", :null => true
       t.column "filesize", :integer, :default => 0, :null => false
-      t.column "content_type", :string, :limit => 60, :default => ""
-      t.column "digest", :string, :limit => 40, :default => "", :null => false
+      t.column "content_type", :string, :limit => 60, :default => "", :null => true
+      t.column "digest", :string, :limit => 40, :default => "", :null => true
       t.column "downloads", :integer, :default => 0, :null => false
       t.column "author_id", :integer, :default => 0, :null => false
       t.column "created_on", :timestamp
     end
 
     create_table "auth_sources", :force => true do |t|
-      t.column "type", :string, :limit => 30, :default => "", :null => false
-      t.column "name", :string, :limit => 60, :default => "", :null => false
+      t.column "type", :string, :limit => 30, :default => "", :null => true
+      t.column "name", :string, :limit => 60, :default => "", :null => true
       t.column "host", :string, :limit => 60
       t.column "port", :integer
       t.column "account", :string, :limit => 60
@@ -54,11 +54,11 @@ class Setup < ActiveRecord::Migration
     end
 
     create_table "custom_fields", :force => true do |t|
-      t.column "type", :string, :limit => 30, :default => "", :null => false
-      t.column "name", :string, :limit => 30, :default => "", :null => false
-      t.column "field_format", :string, :limit => 30, :default => "", :null => false
+      t.column "type", :string, :limit => 30, :default => "", :null => true
+      t.column "name", :string, :limit => 30, :default => "", :null => true
+      t.column "field_format", :string, :limit => 30, :default => "", :null => true
       t.column "possible_values", :text
-      t.column "regexp", :string, :default => ""
+      t.column "regexp", :string, :default => "", :null => true
       t.column "min_length", :integer, :default => 0, :null => false
       t.column "max_length", :integer, :default => 0, :null => false
       t.column "is_required", :boolean, :default => false, :null => false
@@ -76,7 +76,7 @@ class Setup < ActiveRecord::Migration
     end
 
     create_table "custom_values", :force => true do |t|
-      t.column "customized_type", :string, :limit => 30, :default => "", :null => false
+      t.column "customized_type", :string, :limit => 30, :default => "", :null => true
       t.column "customized_id", :integer, :default => 0, :null => false
       t.column "custom_field_id", :integer, :default => 0, :null => false
       t.column "value", :text
@@ -85,7 +85,7 @@ class Setup < ActiveRecord::Migration
     create_table "documents", :force => true do |t|
       t.column "project_id", :integer, :default => 0, :null => false
       t.column "category_id", :integer, :default => 0, :null => false
-      t.column "title", :string, :limit => 60, :default => "", :null => false
+      t.column "title", :string, :limit => 60, :default => "", :null => true
       t.column "description", :text
       t.column "created_on", :timestamp
     end
@@ -93,13 +93,13 @@ class Setup < ActiveRecord::Migration
     add_index "documents", ["project_id"], :name => "documents_project_id"
 
     create_table "enumerations", :force => true do |t|
-      t.column "opt", :string, :limit => 4, :default => "", :null => false
-      t.column "name", :string, :limit => 30, :default => "", :null => false
+      t.column "opt", :string, :limit => 4, :default => "", :null => true
+      t.column "name", :string, :limit => 30, :default => "", :null => true
     end
 
     create_table "issue_categories", :force => true do |t|
       t.column "project_id", :integer, :default => 0, :null => false
-      t.column "name", :string, :limit => 30, :default => "", :null => false
+      t.column "name", :string, :limit => 30, :default => "", :null => true
     end
 
     add_index "issue_categories", ["project_id"], :name => "issue_categories_project_id"
@@ -115,7 +115,7 @@ class Setup < ActiveRecord::Migration
     add_index "issue_histories", ["issue_id"], :name => "issue_histories_issue_id"
 
     create_table "issue_statuses", :force => true do |t|
-      t.column "name", :string, :limit => 30, :default => "", :null => false
+      t.column "name", :string, :limit => 30, :default => "", :null => true
       t.column "is_closed", :boolean, :default => false, :null => false
       t.column "is_default", :boolean, :default => false, :null => false
       t.column "html_color", :string, :limit => 6, :default => "FFFFFF", :null => false
@@ -124,7 +124,7 @@ class Setup < ActiveRecord::Migration
     create_table "issues", :force => true do |t|
       t.column "tracker_id", :integer, :default => 0, :null => false
       t.column "project_id", :integer, :default => 0, :null => false
-      t.column "subject", :string, :default => "", :null => false
+      t.column "subject", :string, :default => "", :null => true
       t.column "description", :text
       t.column "due_date", :date
       t.column "category_id", :integer
@@ -149,8 +149,8 @@ class Setup < ActiveRecord::Migration
 
     create_table "news", :force => true do |t|
       t.column "project_id", :integer
-      t.column "title", :string, :limit => 60, :default => "", :null => false
-      t.column "summary", :string, :limit => 255, :default => ""
+      t.column "title", :string, :limit => 60, :default => "", :null => true
+      t.column "summary", :string, :limit => 255, :default => "", :null => true
       t.column "description", :text
       t.column "author_id", :integer, :default => 0, :null => false
       t.column "created_on", :timestamp
@@ -159,9 +159,9 @@ class Setup < ActiveRecord::Migration
     add_index "news", ["project_id"], :name => "news_project_id"
 
     create_table "permissions", :force => true do |t|
-      t.column "controller", :string, :limit => 30, :default => "", :null => false
-      t.column "action", :string, :limit => 30, :default => "", :null => false
-      t.column "description", :string, :limit => 60, :default => "", :null => false
+      t.column "controller", :string, :limit => 30, :default => "", :null => true
+      t.column "action", :string, :limit => 30, :default => "", :null => true
+      t.column "description", :string, :limit => 60, :default => "", :null => true
       t.column "is_public", :boolean, :default => false, :null => false
       t.column "sort", :integer, :default => 0, :null => false
       t.column "mail_option", :boolean, :default => false, :null => false
@@ -176,9 +176,9 @@ class Setup < ActiveRecord::Migration
     add_index "permissions_roles", ["role_id"], :name => "permissions_roles_role_id"
 
     create_table "projects", :force => true do |t|
-      t.column "name", :string, :limit => 30, :default => "", :null => false
-      t.column "description", :string, :default => "", :null => false
-      t.column "homepage", :string, :limit => 60, :default => ""
+      t.column "name", :string, :limit => 30, :default => "", :null => true
+      t.column "description", :text, :default => "", :null => true
+      t.column "homepage", :string, :limit => 60, :default => "", :null => true
       t.column "is_public", :boolean, :default => true, :null => false
       t.column "parent_id", :integer
       t.column "projects_count", :integer, :default => 0
@@ -187,32 +187,32 @@ class Setup < ActiveRecord::Migration
     end
 
     create_table "roles", :force => true do |t|
-      t.column "name", :string, :limit => 30, :default => "", :null => false
+      t.column "name", :string, :limit => 30, :default => "", :null => true
     end
 
     create_table "tokens", :force => true do |t|
       t.column "user_id", :integer, :default => 0, :null => false
-      t.column "action", :string, :limit => 30, :default => "", :null => false
-      t.column "value", :string, :limit => 40, :default => "", :null => false
+      t.column "action", :string, :limit => 30, :default => "", :null => true
+      t.column "value", :string, :limit => 40, :default => "", :null => true
       t.column "created_on", :datetime, :null => false
     end
 
     create_table "trackers", :force => true do |t|
-      t.column "name", :string, :limit => 30, :default => "", :null => false
+      t.column "name", :string, :limit => 30, :default => "", :null => true
       t.column "is_in_chlog", :boolean, :default => false, :null => false
     end
 
     create_table "users", :force => true do |t|
-      t.column "login", :string, :limit => 30, :default => "", :null => false
-      t.column "hashed_password", :string, :limit => 40, :default => "", :null => false
-      t.column "firstname", :string, :limit => 30, :default => "", :null => false
-      t.column "lastname", :string, :limit => 30, :default => "", :null => false
-      t.column "mail", :string, :limit => 60, :default => "", :null => false
+      t.column "login", :string, :limit => 30, :default => "", :null => true
+      t.column "hashed_password", :string, :limit => 40, :default => "", :null => true
+      t.column "firstname", :string, :limit => 30, :default => "", :null => true
+      t.column "lastname", :string, :limit => 30, :default => "", :null => true
+      t.column "mail", :string, :limit => 60, :default => "", :null => true
       t.column "mail_notification", :boolean, :default => true, :null => false
-      t.column "admin", :boolean, :default => false, :null => false
-      t.column "status", :integer, :default => 1, :null => false
+      t.column "admin", :boolean, :default => false, :null => true
+      t.column "status", :integer, :default => 1, :null => true
       t.column "last_login_on", :datetime
-      t.column "language", :string, :limit => 2, :default => ""
+      t.column "language", :string, :limit => 2, :default => "", :null => true
       t.column "auth_source_id", :integer
       t.column "created_on", :timestamp
       t.column "updated_on", :timestamp
@@ -220,8 +220,8 @@ class Setup < ActiveRecord::Migration
 
     create_table "versions", :force => true do |t|
       t.column "project_id", :integer, :default => 0, :null => false
-      t.column "name", :string, :limit => 30, :default => "", :null => false
-      t.column "description", :string, :default => ""
+      t.column "name", :string, :limit => 30, :default => "", :null => true
+      t.column "description", :string, :default => "", :null => true
       t.column "effective_date", :date
       t.column "created_on", :timestamp
       t.column "updated_on", :timestamp

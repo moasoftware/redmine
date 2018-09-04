@@ -3,7 +3,7 @@ class CreateMessages < ActiveRecord::Migration
     create_table :messages do |t|
       t.column :board_id, :integer, :null => false
       t.column :parent_id, :integer
-      t.column :subject, :string, :default => "", :null => false
+      t.column :subject, :string, :default => "", :null => true
       t.column :content, :text
       t.column :author_id, :integer
       t.column :replies_count, :integer, :default => 0, :null => false
