@@ -1,6 +1,7 @@
 # Software Visualizaton
 
 ### 구성
+#### 용량: 약 10G
 ```
 - CentOS7
 - php
