@@ -1,6 +1,8 @@
 # Software Visualizaton
 
 ### 구성
+#### 용량: 약 10G
+
 ```
 - CentOS7
 - php
@@ -42,9 +44,10 @@
 ## 1. CentOS7 OS 초기 설치
 ### 언어설정  
 
-![](../../images/posts/SWV/centos7.JPG)
+![](images/SWV/centos7.JPG)
 한국어로 설정
-![](../../images/posts/SWV/centos7_summary.JPG)  
+![](images/SWV/centos7_summary.JPG)  
+
  아래 3가지를 설정한다.
 - 소프트웨어 선택
 - 설치 대상
@@ -52,21 +55,23 @@
 
 **소트프웨어 선택**  
 
-![](../../images/posts/SWV/centos7_software.JPG)
+![](images/SWV/centos7_software.JPG)
 
 **설치 대상**
-![](../../images/posts/SWV/centos7_disk.JPG)   
+![](images/SWV/centos7_disk.JPG)   
 
  vm환경에서 테스트 작업한 것이라 따로 파티션 설정을 하진 않았습니다.  
 
 **네트워크 및 호스트명**
 
-![](../../images/posts/SWV/centos7_netWork.JPG)
+![](images/SWV/centos7_netWork.JPG)
+
 이더넷 연결을 켬으로 바꾸어 줍니다.  
 설치 시작을 누르면 사용자 설정으로 넘어갑니다.
 
 
- ![](../../images/posts/SWV/centos7_user.JPG)
+ ![](images/SWV/centos7_user.JPG)
+
  OS가 설치되는 중에 root 암호와, 사용자를 생성하며 완료 후 재부팅을 합니다.  
 
  재부팅이 되면 라이센스 동의 목록을 체크한 후 os 설정을 완료합니다.
@@ -105,29 +110,29 @@ cd /usr/local/SWV/ #SWV 폴더로 이동
 - (참고)Java 관련 에러가 난다면, `source /etc/profile`을 하여 환경변수를 제거한다.
 
 # Jenkins 실행
- ![](../../images/posts/SWV/start_jenkins.JPG)
+ ![](images/SWV/start_jenkins.JPG)
  localhost/jenkins로 접속을 하면 초기에 걸린 Lock을 풀어주기 위해 위에서 나오는 파일의 내용을 넣어줘야 합니다.
  ```sh
  cat /root/.jenkins/secrets/initialAdminPassword  #나오는 비밀번호를 복사하여 넣습니다.
  ```
  
- ![](../../images/posts/SWV/start_jenkins2.JPG)
+ ![](images/SWV/start_jenkins2.JPG)
 플러그인 설치 단계로 넘어갑니다.
 
- ![](../../images/posts/SWV/start_jenkins3.JPG)
+ ![](images/SWV/start_jenkins3.JPG)
  플러그인 설치 진행중..
  
- ![](../../images/posts/SWV/start_jenkins4.JPG)
+ ![](images/SWV/start_jenkins4.JPG)
   첫 관리자 계정을 만드는 화면입니다. 폼에 맞게 내용을 적어주어 만들고, 계속 다음 단계로 넘어가 설치를 완료합니다.
- ![](../../images/posts/SWV/start_jenkins5.JPG)
+ ![](images/SWV/start_jenkins5.JPG)
  플러그인 설치 완료 후, 전에 만든 관리자 계정을 통해 로그인 한 후, 정상 작동하는 화면을 볼 수 있습니다.
  
 # Redmine 실행
-![](../../images/posts/SWV/start_redmine.JPG)
+![](images/SWV/start_redmine.JPG)
 localhost/redmine으로 접속하여 redmine을 사용 가능합니다.
 
 # SVN 계정 설정
-![](../../images/posts/SWV/svn_users.JPG)
+![](images/SWV/svn_users.JPG)
 
 svn 저장소는 `/usr/local/server/svn/repo/devl`에 위치시켰습니다.
 svn을 사용하는 계정, 권한에 관한 설정은 `/usr/local/server/svn/repo/devl/conf/` 폴더 안에 파일들의 내용을 변경하면 됩니다.  
