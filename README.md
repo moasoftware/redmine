@@ -20,8 +20,6 @@
 ### 디렉토리 구조
 **SWV**
 - dev
-  - SNavi
-  - graphviz
   - ruby
   - rubygems
 - htdocs
@@ -29,11 +27,13 @@
 - server
   - apache
   - tomcat
-    - jenkins
   - mysql
   - svn
-- src
+- webapps
+  - jenkins
 - toolchain
+  - SNavi
+  - graphviz
 - tools
   - redmine(config file)
 
@@ -99,34 +99,39 @@ cd SWVpack #SWVpack으로 이동
 ./init.sh #파일 실행 -> /usr/local/SWV 폴더 생성
 ```
 
-#### [mysql의 root 비밀번호를 설정해주어야 함]
-**Start**  
+#### [mysql의 root 비밀번호를 설정해주어야 합니다.]
+# Start
 
 SWV폴더안에 start.sh 파일 실행으로 apache, mysql, tomcat 을 구동합니다.
 ```sh
 cd /usr/local/SWV/ #SWV 폴더로 이동
 ./start.sh  # 구동시키기
 ```
-- (참고)Java 관련 에러가 난다면, `source /etc/profile`을 하여 환경변수를 제거한다.
+- (참고)Java 관련 에러가 난다면, `source /etc/profile`을 하여 환경변수를 다시 적용합니다.
 
 # Jenkins 실행
+
  ![](images/SWV/start_jenkins.JPG)
  localhost/jenkins로 접속을 하면 초기에 걸린 Lock을 풀어주기 위해 위에서 나오는 파일의 내용을 넣어줘야 합니다.
  ```sh
  cat /root/.jenkins/secrets/initialAdminPassword  #나오는 비밀번호를 복사하여 넣습니다.
  ```
- 
+
  ![](images/SWV/start_jenkins2.JPG)
-플러그인 설치 단계로 넘어갑니다.
+인터넷 환경이 아니기때문에, `Select plugins to install`을 선택하여 다음 단계로 넘어갑니다.
 
  ![](images/SWV/start_jenkins3.JPG)
- 플러그인 설치 진행중..
- 
+ `None`을 선택하여 어떠한 플러그인도 설치 하지 않는 것으로 진행합니다.
+ `플러그인은 아래에 언급된 (주의)최초 설치 후 과정에서 가져옵니다.`
+
  ![](images/SWV/start_jenkins4.JPG)
   첫 관리자 계정을 만드는 화면입니다. 폼에 맞게 내용을 적어주어 만들고, 계속 다음 단계로 넘어가 설치를 완료합니다.
  ![](images/SWV/start_jenkins5.JPG)
- 플러그인 설치 완료 후, 전에 만든 관리자 계정을 통해 로그인 한 후, 정상 작동하는 화면을 볼 수 있습니다.
- 
+전에 만든 관리자 계정을 통해 로그인 한 후, 정상 작동하는 화면을 볼 수 있습니다.
+
+**(주의) Jenkins 최초 설치 후 과정**
+SWV폴더 안의 `start.sh` 파일로 최초 실행 하여 **jenskins 설정과, 계정 생성 과정을 다 마친 경우** `stop.sh` 로 종료 한 후,  `jenkins_plugins.sh` 를  한 번 실행해 주어야 합니다.  
+
 # Redmine 실행
 ![](images/SWV/start_redmine.JPG)
 localhost/redmine으로 접속하여 redmine을 사용 가능합니다.
@@ -144,6 +149,6 @@ ID = passwd
 ID2 = passwd2
 ```
 
-**Stop**  
+# Stop
 
 SWV폴더안에 stop.sh 파일 실행으로 apache, mysql, tomcat 을 종료합니다.
