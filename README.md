@@ -18,5 +18,5 @@ bundle exec rake redmine:load_default_data
 </code></pre>
 
 # 시작 방법
-<pre><code>ruby bin/rails server webrick -e development
+<pre><code>ruby bin/rails server webrick -e production
 </code></pre>
